@@ -1,0 +1,55 @@
+.movies {
+  padding: 70px 70px 30px;
+}
+
+.movies__list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(271px, 1fr));
+  grid-template-rows: max-content;
+  gap: 30px 24px;
+  justify-content: center;
+}
+
+.more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 80px;
+  padding-top: 50px;
+}
+
+.more__button {
+  background-color: #2F2F2F;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FFFFFF;
+  width: 320px;
+  height: 36px;
+  border-radius: 6px;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 873px) {
+  .movies {
+    padding: 80px 30px 60px;
+  }
+}
+
+@media screen and (max-width: 577px) {
+  .movies {
+    padding: 84px 14px 50px;
+  }
+
+  .more__button {
+
+    width: 240px;
+
+  }
+}

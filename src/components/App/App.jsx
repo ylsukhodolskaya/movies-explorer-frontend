@@ -1,13 +1,13 @@
-// import logo from '../../images/logo__COLOR_main-1.svg';
-// import account_logo from '../../images/icon__COLOR_icon-main.svg';
+
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
-// import cards from '../../utils/constants.js'
 import Header from '../Header/Header.jsx';
 import Navigation from '../Navigation/Navigation.jsx';
 import Main from '../Main/Main.jsx';
-import SearchForm from '../Movies/SearchForm/SearchForm.jsx';
-import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList.jsx';
+
+import Movies from '../Movies/Movies/Movies.jsx';
+import SavedMovies from '../SavedMovies/SavedMovies/SavedMovies.jsx';
+
 import Profile from '../Profile/Profile.jsx';
 import Register from '../Register/Register.jsx';
 import Login from '../Login/Login.jsx';
@@ -19,14 +19,24 @@ import { useState } from 'react';
 
 function App() {
 
+  const [isNavBarPopupOpen, setIsNavBarPopupOpen] = useState(false);
+  const handleNavBarClick = () => {
+    setIsNavBarPopupOpen(true);
+  }
+  const closeNavTabPopup = () => {
+    setIsNavBarPopupOpen(false);
+  };
+
   const [loggedIn, setLoggedIn] = useState(true);
 
   return (
     <div>
 
-      <Header>
+      <Header
+      onNavBar={handleNavBarClick}
+      >
         <Navigation />
-      </Header> 
+      </Header>
 
       <Switch>
         <Route path="/sign-up">
@@ -36,17 +46,33 @@ function App() {
         <Route path="/sign-in">
           <Login />
         </Route>
+
+        <Route path="/movies">
+          <Movies />
+        </Route>
+
+        <Route path="/saved-movies">
+          <SavedMovies />
+        </Route>
+
+        <Route path="/profile">
+          <Profile />
+        </Route>
+
+        <Route path="/404">
+          <NotFound />
+        </Route>
+
+        <Route path="/">
+          <Main />
+        </Route>
       </Switch>
 
-      <NavTab />
-      {/* <Main /> */}
-      {/* <SearchForm /> */}
-      {/* <MoviesCardList /> */}
-      <Profile />
-      {/* <Register /> */}
-      {/* <Login /> */}
+      <NavTab 
+      isOpen={isNavBarPopupOpen}
+      onClose={closeNavTabPopup}
+       />
       <Footer />
-      {/* <NotFound /> */}
 
     </div>
   );

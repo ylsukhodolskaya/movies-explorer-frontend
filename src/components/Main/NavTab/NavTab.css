@@ -1,4 +1,6 @@
 .navtab {
+  visibility: hidden;
+  opacity: 0;
   position: fixed;
   width: 100%;
   height: 100%;
@@ -84,9 +86,16 @@
   align-items: center;
 }
 
+.navtab_opened {
+  opacity: 1;
+  visibility: visible;
+  transition: visibility .2s, opacity .2s ease-in-out;
+}
+
 @media screen and (max-width: 577px) {
   .navtab__popup {
     width: 100vw;
   }
 
 }
+

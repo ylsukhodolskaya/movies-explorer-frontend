@@ -1,16 +1,14 @@
 import React from "react";
 import logo from '../../images/logo__COLOR_main-1.svg';
 import './Register.css'
-import { Link } from 'react-router-dom';
-
 
 function Register() {
   return (
     <article className="register">
       <section className="register__container">
-        <Link to="/" className="register__link-logo">
+        <a href="/" className="register__link-logo">
           <img src={logo} className="register__logo" alt="logo" />
-        </Link>
+        </a>
         <h1 className="register__title">Добро пожаловать!</h1>
       </section>
 
@@ -42,7 +40,7 @@ function Register() {
         <button type="submit" className="register-buttons__submit">Зарегистрироваться</button>
         <div className="register-buttons__container">
           <span className="register-buttons__text">Уже зарегистрированы?</span>
-          <Link to="/sign-in" className="register-buttons__link">Войти</Link>
+          <a href="/sign-in" className="register-buttons__link">Войти</a>
         </div>
       </section>
 

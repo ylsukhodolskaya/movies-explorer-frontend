@@ -3,11 +3,11 @@ import './NavTab.css';
 import account_logo from '../../../images/icon__COLOR_icon-main.svg';
 
 
-function NavTab () {
+function NavTab ({isOpen, onClose}) {
   return (
-<article className="navtab">
+<article className={`navtab ${isOpen && 'navtab_opened'}`}>
   <section className="navtab__popup">
-    <button type="button" className="navtab__close"></button>
+    <button type="button" className="navtab__close" onClick={onClose}></button>
     <div className="navtab__navigate">
       <a href="/" className="navtab__navigate-link">Главная</a>
       <a href="/" className="navtab__navigate-link">Фильмы</a>
