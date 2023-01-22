@@ -1,0 +1,35 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 70px 18px 70px;
+}
+
+.header__logo {
+  padding: 0 44px 0 0;
+}
+
+.header__burger-button {
+  background-image: url(../../images/icon__BURGER.svg);
+  background-size: cover;
+  border: none;
+  background-color: #202020;
+  width: 44px;
+  cursor: pointer;
+  display: none;
+}
+
+@media screen and (max-width: 873px) {
+  .header {
+    padding: 18px 30px;
+  }
+
+  .header__burger-button {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 577px) {
+  .header {
+    padding: 15px 14px;
+  }
+}

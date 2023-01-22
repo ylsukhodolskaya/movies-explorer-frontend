@@ -1,0 +1,92 @@
+.navtab {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, .5);
+}
+
+.navtab__popup {
+  width: 520px;
+  height: 100vh;
+  background-color: #202020;
+  margin: 0;
+  padding: 159px 90px 92px;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navtab__close {
+  background-image: url(../../../images/button__close.svg);
+  width: 20px;
+  height: 20px;
+  border: none;
+  background-color: #202020;
+  cursor: pointer;
+  background-size: cover;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  right: 22px;
+  top: 22px;
+}
+
+.navtab__navigate {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  align-items: center;
+
+}
+
+.navtab__navigate-link {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  color: #FFFFFF;
+  text-decoration: none;
+  text-align: center;
+}
+
+.navtab__navigate-link_active {
+  border-bottom: 2px solid #FFFFFF;
+}
+
+.navtab__account-links {
+  display: flex;
+  gap: 17px;
+  align-items: center;
+}
+
+.navtab__account-link {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: #FFFFFF;
+}
+
+.navtab__account-link-button {
+  padding: 8px 7.25px;
+  background-color: #313131;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 577px) {
+  .navtab__popup {
+    width: 100vw;
+  }
+
+}

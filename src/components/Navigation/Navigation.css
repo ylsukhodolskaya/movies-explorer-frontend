@@ -1,0 +1,58 @@
+.header__menu {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.link {
+  text-decoration: none;
+  color: #fff;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.header__left-links {
+  display: flex;
+  gap: 16px;
+}
+
+.header__right-links {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.header__account-links {
+  display: flex;
+  gap: 13px;
+  align-items: center;
+}
+
+.header__link-button {
+  padding: 8px 20px 8px 20px;
+  background-color: #3DDC84;
+  border-radius: 4px;
+}
+
+.header__account-link-button {
+  padding: 8px 7.25px;
+  background-color: #313131;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text_thin {
+  font-weight: 400;
+}
+
+@media screen and (max-width: 873px) {
+  .header__menu {
+    display: none;
+  }
+}
