@@ -88,6 +88,7 @@
   line-height: 16px;
   padding: 0;
   margin: 0;
+  cursor: pointer;
 }
 
 .profile-form__button-log-out {
@@ -99,6 +100,7 @@
   font-weight: 500;
   font-size: 13px;
   line-height: 16px;
+  cursor: pointer;
 }
 
 

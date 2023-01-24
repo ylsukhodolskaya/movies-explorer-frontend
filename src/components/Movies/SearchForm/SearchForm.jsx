@@ -3,10 +3,10 @@ import './SearchForm.css';
 
 function SearchForm() {
   return (
-    <article className='search-film'>
-      <form action="" className='search-film__form'>
-        <fieldset className='search-film_container'>
-          <input type="text" className='search-film__input' placeholder='Фильм' />
+    <article className='search-film' aria-label="search-film">
+      <form action="/" className='search-film__form' >
+        <fieldset className='search-film__container' tabindex="0">
+          <input type="text" className='search-film__input' placeholder='Фильм' required/>
           <button className='search-film__button'>
           </button>
         </fieldset>

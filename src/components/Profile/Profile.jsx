@@ -4,7 +4,7 @@ import './Profile.css';
 function Profile() {
   return (
     <article className="profile">
-      <form action="" className="profile-form">
+      <form action="/" className="profile-form">
         <h2 className="profile-form__header">Привет, Госпожа!</h2>
         <fieldset className="profile-form__fields">
           <label className="profile-form__label" htmlFor="name">
@@ -18,7 +18,7 @@ function Profile() {
             <span className="profile-form__field-name">
               Почта
             </span>
-            <input type="email" placeholder='Введите почту' className="profile-form__field" />
+            <input type="email" id="email" placeholder='Введите почту' className="profile-form__field" />
           </label>
         </fieldset>
 

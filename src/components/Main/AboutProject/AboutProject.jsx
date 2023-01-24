@@ -3,9 +3,9 @@ import './AboutProject.css';
 
 function AboutProject() {
   return (
-    <article className='about-project'>
+    <article className='about-project' aria-label="about-project">
       <h2 className='headers' id="about-project">О проекте</h2>
-      <section className='about-project__columns'>
+      <section className='about-project__columns' aria-label="about-project">
         <div className='about-project__column'>
           <h2 className='about-project__column-header'>Дипломный проект включал 5 этапов</h2>
           <p className='about-project__column-text'>Составление плана, работу над бэкендом, вёрстку, добавление функциональности и финальные доработки.</p>
@@ -15,7 +15,7 @@ function AboutProject() {
           <p className='about-project__column-text'>У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься.</p>
         </div>
       </section>
-      <section className='project-progress'>
+      <section className='project-progress' aria-label="project-progress">
         <div className='project-progress__column project-progress__column_small'>
           <div className='project-progress__indicator project-progress__indicator_green'>
             <span className='project-progress__indicator-span project-progress__indicator-span_black'>1 неделя</span>

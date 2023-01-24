@@ -6,12 +6,12 @@ import { Link } from 'react-router-dom';
 
 function Login() {
   return (
-    <article className="login">
-      <section className="login__container">
+    <article className="login" aria-label="login">
+      <section className="login__container" aria-label="login">
         <Link to="/" className="login__link-logo">
           <img src={logo} className="login__logo" alt="logo" />
         </Link>
-        <h1 className="login__title">Рады видеть!</h1>
+        <h2 className="login__title">Рады видеть!</h2>
       </section>
 
       <form className="login-form">
@@ -32,7 +32,7 @@ function Login() {
         <span className="login-form__error"></span>
       </form>
 
-      <section className="login-buttons">
+      <section className="login-buttons" aria-label="login-buttons">
         <button type="submit" className="login-buttons__submit">Войти</button>
         <div className="login-buttons__container">
           <span className="login-buttons__text">Ещё не зарегистрированы?</span>

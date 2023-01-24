@@ -3,9 +3,9 @@ import './Techs.css';
 
 function Techs() {
   return (
-    <article className='tech'>
+    <article className='tech' aria-label="techs">
       <h2 className='headers' id="tech">Технологии</h2>
-      <section className='tech__container promo__container'>
+      <section className='tech__container' aria-label="techs">
         <h3 className='tech__header'>7 технологий</h3>
         <p className='tech__text'>На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.</p>
         <ul className='tech__list'>

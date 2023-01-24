@@ -3,9 +3,9 @@ import './AboutMe.css';
 
 function AboutMe() {
   return (
-    <article className='about-me'>
+    <article className='about-me' aria-label="about-me">
       <h2 className='headers' id="about-me">Студент</h2>
-      <section className='about-me__container'>
+      <section className='about-me__container' aria-label="about-me">
         <div className='about-me__about'>
           <h3 className='about-me__name'>Юля</h3>
           <p className='about-me__description'>Фронтенд-разработчик, 30 лет</p>

@@ -4,10 +4,10 @@ import './MoviesCard.css';
 function MoviesCard() {
   return (
     <li className='movies__item'>
-      <section className='movies__item-container'>
+      <section className='movies__item-container' aria-label="movies-item">
         <div className='movies__item-header'>
           <div className='movies__item-header-info'>
-            <h1 className='movies__item-name'>33 слова о дизайне</h1>
+            <h2 className='movies__item-name'>33 слова о дизайне</h2>
             <p className='movies__item-duration'>1ч 47м</p>
           </div>
           <button className='movies__item-bookmark'></button>

@@ -1,9 +1,8 @@
-
 .search-film {
   padding: 70px 70px 47px;
 }
 
-.search-film_container {
+.search-film__container {
   margin: 0;
   display: flex;
   justify-content: space-between;
@@ -21,7 +20,14 @@
   border: none;
   outline: none;
   background-color: #202020;
+  color: #fff;
 }
+
+.search-film__input:focus  {
+  outline: auto;
+}
+
+
 
 .search-film__input::placeholder {
   font-weight: 500;
@@ -40,6 +46,10 @@
   background-color: #202020;
   cursor: pointer;
   border-radius: 16px;
+}
+
+.search-film__button:hover {
+  opacity: 80%;
 }
 
 

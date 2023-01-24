@@ -6,12 +6,12 @@ function MoviesCardList() {
 
   return (
     <>
-      <article className='movies'>
+      <article className='movies' aria-label="movies">
         <ul className='movies__list'>
           <MoviesCard />
         </ul>
       </article>
-      <article className="more">
+      <article className="more" aria-label="more">
         <button type="button" className="more__button">Ещё</button>
       </article>
     </>

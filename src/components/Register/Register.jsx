@@ -4,12 +4,12 @@ import './Register.css'
 
 function Register() {
   return (
-    <article className="register">
-      <section className="register__container">
+    <article className="register" aria-label="register">
+      <section className="register__container" aria-label="register">
         <a href="/" className="register__link-logo">
           <img src={logo} className="register__logo" alt="logo" />
         </a>
-        <h1 className="register__title">Добро пожаловать!</h1>
+        <h2 className="register__title">Добро пожаловать!</h2>
       </section>
 
       <form className="register-form">
@@ -36,7 +36,7 @@ function Register() {
         <span className="register-form__error"></span>
       </form>
 
-      <section className="register-buttons">
+      <section className="register-buttons" aria-label="register-buttons">
         <button type="submit" className="register-buttons__submit">Зарегистрироваться</button>
         <div className="register-buttons__container">
           <span className="register-buttons__text">Уже зарегистрированы?</span>
