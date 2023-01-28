@@ -2,13 +2,13 @@ import React from "react";
 import './MoviesCardList.css';
 import MoviesCard from "../MoviesCard/MoviesCard.jsx";
 
-function MoviesCardList() {
-
+function MoviesCardList(props) {
+const{cards} = props;
   return (
     <>
       <article className='movies' aria-label="movies">
         <ul className='movies__list'>
-          <MoviesCard />
+          {cards.map(card => <MoviesCard key={card.id} {...card}/>)}
         </ul>
       </article>
       <article className="more" aria-label="more">

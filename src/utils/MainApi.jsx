@@ -55,8 +55,19 @@ class Api {
       })
     }).then(res => this._parseResponse(res));
   }
+  
+//получение карточека
+  getMoviesCard() {
+    return fetch(`${this._url}/movies`, {
+      headers: this._headers
+    }).then(res => this._parseResponse(res));
+  }
 
 }
+
+
+
+
 
 export const mainApi = new Api({
   url: "http://localhost:3002",

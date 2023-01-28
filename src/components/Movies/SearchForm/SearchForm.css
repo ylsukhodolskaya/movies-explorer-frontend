@@ -77,7 +77,7 @@
   display: block;
   width: 36px;
   height: 20px;
-  background-color: #3DDC84;
+  background-color: #343434;
   border-radius: 20px;
   transition: .3s;
   cursor: pointer;
@@ -93,24 +93,24 @@
 .search-film__checkbox-container::after {
   position: absolute;
   top: 6px;
-  left: 22px;
+  left: 6px;
   content: '';
   width: 8px;
   height: 8px;
-  background-color: #fff;
+  background-color: #A0A0A0;
   border-radius: 25px;
   transition: .3s;
 
 }
 
 .search-film__checkbox:checked+.search-film__checkbox-container {
-  background-color: #343434;
+  background-color: #3DDC84;
   transition: .3s;
 }
 
 .search-film__checkbox:checked+.search-film__checkbox-container::after {
-  background-color: #A0A0A0;
-  left: 6px;
+  background-color: #fff;
+  left: 22px;
   transition: .3s;
 }
 
