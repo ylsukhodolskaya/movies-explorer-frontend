@@ -1,12 +1,13 @@
 import React from "react";
-// import { Link } from "react-router-dom";
 import account_logo from '../../images/icon__COLOR_icon-main.svg';
 import './Navigation.css';
 
-function Navigation() {
+function Navigation(props) {
+  const { loggedIn } = props;
+
   return (
-    <article className='header__menu' aria-label="header__menu">
-      <section className='header__left-links' aria-label="header__left-links">
+    <article className={`${loggedIn ? 'header__menu' : 'header__menu_right'}`} aria-label="header__menu">
+      {loggedIn && <section className='header__left-links' aria-label="header__left-links">
         <a
           href="/movies"
           className="link"
@@ -15,20 +16,20 @@ function Navigation() {
           href="/saved-movies"
           className="link link_thin"
         >Сохраненные фильмы</a>
-      </section>
-      {/* <section className='header__right-links' aria-label="header__right-links">
+      </section>}
+      {!loggedIn && <section className='header__right-links' aria-label="header__right-links">
         <a
           className="link "
-          href="/sign-up"
+          href="/signup"
         >
           Регистрация
         </a>
         <a
-          href="/sign-in"
+          href="/signin"
           className='link header__link-button'
         >Войти</a>
-      </section> */}
-      <section className='header__account-links' aria-label="header__account-links">
+      </section>}
+      {loggedIn && <section className='header__account-links' aria-label="header__account-links">
         <a
           className="link "
           href="/profile"
@@ -41,7 +42,7 @@ function Navigation() {
         >
           <img src={account_logo} alt="" />
         </a>
-      </section>
+      </section>}
     </article>
   )
 }

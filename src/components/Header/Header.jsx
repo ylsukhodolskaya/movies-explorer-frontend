@@ -2,12 +2,15 @@ import React from "react";
 import logo from '../../images/logo__COLOR_main-1.svg';
 import './Header.css';
 import { useLocation } from "react-router-dom";
+import Navigation from '../Navigation/Navigation.jsx';
 
 
-function Header({children, onNavBar}) {
+
+function Header(props) {
+  const {onNavBar, loggedIn} = props;
 
   const { pathname } = useLocation();
-  const isLoginRegisterPage = pathname === '/sign-in' || pathname === '/sign-up';
+  const isLoginRegisterPage = pathname === '/signin' || pathname === '/signup';
 
   return (
     (!isLoginRegisterPage) &&
@@ -16,7 +19,7 @@ function Header({children, onNavBar}) {
         <img src={logo} className="header__logo" alt="logo" />
       </a>
       <button type="button" className="header__burger-button" onClick={onNavBar}></button>
-      {children}
+      <Navigation loggedIn={loggedIn} />
     </header>
   )
 }

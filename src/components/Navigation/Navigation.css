@@ -5,6 +5,13 @@
   align-items: center;
 }
 
+.header__menu_right {
+  display: flex;
+  justify-content: right;
+  width: 100%;
+  align-items: center;
+}
+
 .link {
   text-decoration: none;
   color: #fff;
