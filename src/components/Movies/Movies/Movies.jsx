@@ -40,6 +40,8 @@ function Movies() {
       });
   }, [])
 
+  
+
   return (
     <>
       <SearchForm />

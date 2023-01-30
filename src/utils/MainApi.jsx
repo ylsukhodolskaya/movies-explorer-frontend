@@ -55,11 +55,31 @@ class Api {
       })
     }).then(res => this._parseResponse(res));
   }
-  
+
 //получение карточека
   getMoviesCard() {
     return fetch(`${this._url}/movies`, {
       headers: this._headers
+    }).then(res => this._parseResponse(res));
+  }
+
+  //удаление карточки
+  deleteCard(cardId) {
+    return fetch(`${this._url}/movies/${cardId}`, {
+      method: 'DELETE',
+      headers: this._headers
+    }).then(res => this._parseResponse(res));
+  }
+
+  //сохранение карточки
+  addCard(data) {
+    return fetch(`${this._url}/movies`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: data.name,
+        link: data.link
+      })
     }).then(res => this._parseResponse(res));
   }
 
