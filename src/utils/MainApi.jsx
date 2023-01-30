@@ -76,10 +76,7 @@ class Api {
     return fetch(`${this._url}/movies`, {
       method: 'POST',
       headers: this._headers,
-      body: JSON.stringify({
-        name: data.name,
-        link: data.link
-      })
+      body: JSON.stringify(data)
     }).then(res => this._parseResponse(res));
   }
 

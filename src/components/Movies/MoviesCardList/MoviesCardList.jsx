@@ -3,12 +3,12 @@ import './MoviesCardList.css';
 import MoviesCard from "../MoviesCard/MoviesCard.jsx";
 
 function MoviesCardList(props) {
-const{cards} = props;
+const{cards, searchMovies} = props;
   return (
     <>
       <article className='movies' aria-label="movies">
         <ul className='movies__list'>
-          {cards.map(card => <MoviesCard key={card.id} {...card}/>)}
+          {cards.map((card) => <MoviesCard key={card.movieId} card={card}/>)}
         </ul>
       </article>
       <article className="more" aria-label="more">

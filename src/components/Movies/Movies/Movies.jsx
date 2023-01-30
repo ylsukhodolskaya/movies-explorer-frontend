@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import MoviesCardList from "../MoviesCardList/MoviesCardList.jsx";
 import SearchForm from "../SearchForm/SearchForm.jsx";
 import { moviesApi } from "../../../utils/MoviesApi.jsx";
+import { mainApi } from '../../../utils/MainApi.jsx';
 
 
 
@@ -10,42 +11,67 @@ function Movies() {
   //переменная состояния cards и эффект при монтировании, который будет вызывать moviesApi.getMoviesCards() и обновлять стейт-переменную из полученного значения
 
   const [cards, setCards] = useState([]);
+  const [cardsFiltered, setCardsFiltetred] = useState([]);
+  const [searchMovies, setSearchMovies] = useState(false);
 
-  useEffect(() => {
-    moviesApi.getMoviesCards()
-      .then((cards) => {
-        console.log ('cards', cards);
-        const cardsFromBeatfilm = cards.map(item => ({
-          id: item.id,
-          image: `https://api.nomoreparties.co${item.image.url}`,
-          nameRU: item.nameRU,
-          nameEN: item.nameEN,
-          duration: item.duration,
-          director: item.director,
-          thumbnail: `https://api.nomoreparties.co${item.image.previewUrl}`,
-          movieId: item.id,
-          saved: false,
-          created_at: item.created_at,
-          updated_at: item.updated_at,
-          trailerLink: item.trailerLink,
-          year: item.year,
-          country: item.country,
-          description: item.description
-        }));
-        console.log ('cardsFromBeatfilm', cardsFromBeatfilm);
-        setCards(cardsFromBeatfilm);
-      })
-      .catch((err) => {
-        console.log('//////Ошибка moviesApi.getCards//////', err);
-      });
-  }, [])
+  const filterCards = (search) => {
+    //вставить фильтра карточек по названию и продолжительности
+    setSearchMovies(true);
+    const filter = (cards) => {
+      setCardsFiltetred(cards.filter((card) => {
+        const nameMovie = card.nameRU.toLowerCase().includes(search.name.toLowerCase());
+        const durationMovieShort = search.durationMovieShort ? card.duration <= 40 : true;
+        return nameMovie && durationMovieShort;
+      }))
+    }
 
-  
+    if (cards.length === 0) {
+      const localMovies = JSON.parse(localStorage.getItem('local-movies') || '[]');
+      if (localMovies.length === 0) {
+        const token = localStorage.getItem('jwt');
+        mainApi.setToken(token);
+        Promise.all([moviesApi.getMoviesCards(), mainApi.getMoviesCard()])
+          .then(([beatCards, localCards]) => {
+            const mergeCards = beatCards.map(card => {
+              const localCard = localCards.find((localCard) => localCard.movieId === card.id);
+              card._id = localCard !== undefined ? localCard._id : '';
+              card.movieId = card.id;
+              card.thumbnail = `https://api.nomoreparties.co/${card.image.url}`;
+              card.saved = localCard !== undefined;
+              return card;
+            })
+            setCards(mergeCards);
+            //добавить фильтр на mergeCards
+            filter(mergeCards);
+            localStorage.setItem('local-movies', JSON.stringify(mergeCards))
+          })
+      } else {
+        setCards(localMovies);
+        //добавить фильтр на localMovies;
+        filter(localMovies);
+      }
+    } else {
+      //добавить фильтр на cards
+      filter(cards);
+    }
+  }
+
+
+
+
 
   return (
     <>
-      <SearchForm />
-      {cards ? ( <MoviesCardList cards={cards}/>) : 'запрос не задан'}
+      <SearchForm
+        filterCards={filterCards}
+        page='movies'
+      />
+      {/* {cards ? ( <MoviesCardList cards={cards}/>) : 'запрос не задан'} */}
+      <MoviesCardList
+        cards={cardsFiltered}
+        searchMovies={searchMovies}
+      />
+
     </>
   )
 }
