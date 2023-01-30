@@ -79,7 +79,6 @@ class Api {
       body: JSON.stringify(data)
     }).then(res => this._parseResponse(res));
   }
-
 }
 
 
