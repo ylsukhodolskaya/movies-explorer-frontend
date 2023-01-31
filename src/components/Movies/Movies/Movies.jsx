@@ -42,6 +42,7 @@ function Movies() {
   const [cardsFiltered, setCardsFiltetred] = useState([]);
   const [searchMovies, setSearchMovies] = useState(false);
 
+
   //прелоадер
   const [preloader, setPreloader] = useState(false);
 

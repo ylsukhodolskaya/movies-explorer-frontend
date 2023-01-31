@@ -17,7 +17,7 @@ function MoviesCardList(props) {
               saveMovie={saveMovie}
             />
           )}
-          {cards.length === 0 &&
+          {cards.length === 0 && searchMovies && !preloader &&
             <li className='movies__container-not-found'>
               <span className='movies__not-found'>Ничего не найдено</span></li>}
         </ul>
