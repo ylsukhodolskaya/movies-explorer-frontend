@@ -18,7 +18,10 @@ function SearchForm(props) {
       setValue(searchMovies);
       filterCards(searchMovies);
     }
-    // if (page === 'saved-movies') {}
+    if (page === 'saved-movies') {
+      filterCards(value);
+      setValue({ name: '', durationMovieShort: false });
+    }
   }, [])
 
   const handleChange = (e) => {
