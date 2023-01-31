@@ -1,5 +1,6 @@
 import './App.css';
 import { Switch, Route, useHistory } from 'react-router-dom';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.jsx';
 import { useState, useEffect } from 'react';
 import Header from '../Header/Header.jsx';
 import Main from '../Main/Main.jsx';
@@ -67,14 +68,16 @@ function App() {
   }, [loggedIn]);
 
   // Регистрация пользователя
-  function handleRegistration(registrationData) {
+  function handleRegistration(registrationData, callback) {
     mainApi.register(registrationData)
       .then((result) => {
         if (result) {
           // openInfoTooltipPopup(true);
+          // после того как рарегался нужно залогинить его, получить токен, /получить данные пользователя и перекинуть на movies
           history.push('/signin');
           setCurrentUser(result);
-          console.log('Регистрация ОК App.jsx')
+          console.log('Регистрация ОК App.jsx');
+          callback('')
         } else {
           // openInfoTooltipPopup(false);
           console.log('Ошибка при регистрации в App.jsx')
@@ -83,6 +86,7 @@ function App() {
       .catch((err) => {
         console.log('/////Ошибка при регистрации в App.jsx/////', err);
         // openInfoTooltipPopup(false);
+        callback(err.message)
       })
   }
 
@@ -153,27 +157,32 @@ function App() {
             <Login onLogin={handleLogin} />
           </Route>
 
-          <Route path="/movies">
-            <Movies />
-          </Route>
+          <ProtectedRoute
+            path="/movies"
+            component={Movies}
+            loggedIn={loggedIn}
+          />
 
-          <Route path="/saved-movies">
-            <SavedMovies />
-          </Route>
+          <ProtectedRoute
+            path="/saved-movies"
+            component={SavedMovies}
+            loggedIn={loggedIn}
+          />
 
-          <Route path="/profile">
-            <Profile
-              onProfile={handleUpdateUser}
-              logOut={logOut}
-            />
-          </Route>
-
-          <Route path="/404">
-            <NotFound />
-          </Route>
+          <ProtectedRoute
+            path="/profile"
+            component={Profile}
+            onProfile={handleUpdateUser}
+            logOut={logOut}
+            loggedIn={loggedIn}
+          />
 
           <Route path="/">
             <Main />
+          </Route>
+
+          <Route path="/*">
+            <NotFound />
           </Route>
         </Switch>
 

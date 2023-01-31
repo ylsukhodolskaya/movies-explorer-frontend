@@ -7,33 +7,33 @@ import { mainApi } from '../../../utils/MainApi.jsx';
 //отображение кнопки ЕЩЕ
 const renderCards = () => {
   const render = {
-    start: 12, 
+    start: 12,
     load: 3
   };
-  if(window.innerWidth < 1001) {
+  if (window.innerWidth < 1001) {
     render.start = 8;
     render.load = 2;
-  } 
-  if(window.innerWidth < 706) {
+  }
+  if (window.innerWidth < 706) {
     render.start = 5;
     render.load = 1;
-  } 
+  }
   return render;
 }
 
 
 function Movies() {
 
-    //===========================
-//отображение кнопки ЕЩЕ
+  //===========================
+  //отображение кнопки ЕЩЕ
   const render = renderCards();
-const [renderCounter, setRenderCounter] = useState(render.start);
+  const [renderCounter, setRenderCounter] = useState(render.start);
 
-const changeCounter = () => {
-  const render = renderCards();
-  setRenderCounter(renderCounter+render.load);
-}
-    //===========================
+  const changeCounter = () => {
+    const render = renderCards();
+    setRenderCounter(renderCounter + render.load);
+  }
+  //===========================
 
 
   //переменная состояния cards и эффект при монтировании, который будет вызывать moviesApi.getMoviesCards() и обновлять стейт-переменную из полученного значения
@@ -64,9 +64,6 @@ const changeCounter = () => {
         setPreloader(true);
         Promise.all([moviesApi.getMoviesCards(), mainApi.getMoviesCard()])
           .then(([beatCards, localCards]) => {
-            console.log('localCards', localCards);
-            console.log('beatCards', beatCards);
-
             const mergeCards = beatCards.map(card => {
               const localCard = localCards.find((localCard) => localCard.movieId === card.id);
               console.log('localCard', localCard);
@@ -95,25 +92,23 @@ const changeCounter = () => {
     }
   }
 
-const saveMovie = (card) => {
-  if(card.saved) {
-    mainApi.deleteCard(card._id)
-    .then(() => {
-      setCards((beatCards) => {
-        const updateMergeCards = beatCards.map(beatCard => {
-          if(beatCard._id === card._id) {
-            beatCard.saved = false;
-          }
-          return beatCard;
+  const saveMovie = (card) => {
+    if (card.saved) {
+      mainApi.deleteCard(card._id)
+        .then(() => {
+          setCards((beatCards) => {
+            const updateMergeCards = beatCards.map(beatCard => {
+              if (beatCard._id === card._id) {
+                beatCard.saved = false;
+              }
+              return beatCard;
+            })
+            return updateMergeCards;
+          })
         })
-        localStorage.setItem('local-movies', JSON.stringify(updateMergeCards));
-        return updateMergeCards;
-      })
-      localStorage.removeItem('saved-movies')
-    })
-  } else {
-    const renderSavedCard = {
-      country: card.country,
+    } else {
+      const renderSavedCard = {
+        country: card.country,
         director: card.director,
         duration: card.duration,
         year: card.year,
@@ -124,27 +119,25 @@ const saveMovie = (card) => {
         movieId: card.id,
         nameRU: card.nameRU,
         nameEN: card.nameEN,
-    };
-    mainApi.addCard(renderSavedCard)
-    .then((serverCard) => {
-      setCards((beatCards) => {
-        localStorage.removeItem('saved-movies');
-        const updateMergeCards = beatCards.map(beatCard => {
-          if(beatCard.id === serverCard.movieId) {
-            beatCard.saved = true;
+      };
+      mainApi.addCard(renderSavedCard)
+        .then((serverCard) => {
+          moviesApi.addCard(serverCard)
+          setCards((beatCards) => {
+            const updatedMergedCards = beatCards.map(beatCard => {
+              if (beatCard.id === serverCard.movieId) {
+                beatCard.saved = true;
                 beatCard._id = serverCard._id;
                 beatCard.movieId = serverCard.movieId;
                 beatCard.thumbnail = serverCard.thumbnail;
-          }
-          // console.log('beatCard', beatCard);
-          return beatCard;
+              }
+              return beatCard;
+            })
+            return updatedMergedCards;
+          })
         })
-        localStorage.setItem('local-movies', JSON.stringify(updateMergeCards));
-        return updateMergeCards;
-      })
-    })
+    }
   }
-}
 
 
 
@@ -155,13 +148,13 @@ const saveMovie = (card) => {
         page='movies'
       />
       <MoviesCardList
-        cards={cardsFiltered.filter((_,i) => i < renderCounter)}
+        cards={cardsFiltered.filter((_, i) => i < renderCounter)}
         searchMovies={searchMovies}
         saveMovie={saveMovie}
         preloader={preloader}
       />
       {(cardsFiltered.length > renderCounter) && <article className="more" aria-label="more">
-         <button type="button" className="more__button" onClick={changeCounter}>Ещё</button>
+        <button type="button" className="more__button" onClick={changeCounter}>Ещё</button>
       </article>}
     </>
   )

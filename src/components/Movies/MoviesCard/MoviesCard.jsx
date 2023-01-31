@@ -9,12 +9,12 @@ function MoviesCard(props) {
   const hours = card.duration >= 60 ? `${Math.floor(card.duration / 60)} ч ` : '';
   const minutes = card.duration === 60 ? '' : `${card.duration % 60} м`;
   const durationMovie = hours + minutes;
-  
-const handleSaveMovie = () => 
-saveMovie(card);
 
-const location = useLocation();
-const classButton = card.saved ? "movies__item-bookmark movies__item-bookmark_active" : "movies__item-bookmark";
+  const handleSaveMovie = () =>
+    saveMovie(card);
+
+  const location = useLocation();
+  const classButton = card.saved ? "movies__item-bookmark movies__item-bookmark_active" : "movies__item-bookmark";
 
   return (
     <li className='movies__item'>

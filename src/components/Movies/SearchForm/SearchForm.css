@@ -48,7 +48,19 @@
   border-radius: 16px;
 }
 
-.search-film__button:hover {
+.search-film__button:disabled {
+  border: none;
+  background-image: url('../../../images/find disabled.svg');
+  background-repeat: no-repeat;
+  width: 34px;
+  height: 34px;
+  background-color: #202020;
+  cursor: pointer;
+  border-radius: 16px;
+  cursor: default;
+}
+
+.search-film__button:not(:disabled):hover {
   opacity: 80%;
 }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import  { useState } from "react";
 import logo from '../../images/logo__COLOR_main-1.svg';
 import './Login.css';
 import { Link } from 'react-router-dom';
@@ -7,28 +7,30 @@ import { Link } from 'react-router-dom';
 function Login(props) {
   const { onLogin } = props;
 
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [value, setValue] = useState({email: '', password: ''});
+  const [error, setError] = useState({email: '', password: ''});
+  const [isValidForm, setIsValidForm] = useState(false);
+  const [apiError, setApiError] = useState('');
 
-  function handleChangeEmail(e) {
-    setEmail(e.target.value);
-  }
-
-  function handleChangePassword(e) {
-    setPassword(e.target.value);
+  function handleChange(e) {
+    setValue((preValue) => ({
+      ...preValue, 
+      [e.target.name]: e.target.value
+    }));
+    setError((preValue) => ({
+      ...preValue, 
+      [e.target.name]: e.target.validationMessage
+    }));
+    setIsValidForm(e.target.closest('form').checkValidity())
   }
 
 
   // Обработчик формы при submit
   function handleSubmit(e) {
-    console.log('handleSubmit!!!!!!!!!!!');
     // Запрещаем браузеру переходить по адресу формы
     e.preventDefault();
     // Передаём значения управляемых компонентов во внешний обработчик
-    onLogin({
-      email,
-      password
-    });
+    onLogin(value, setApiError);
   }
 
   return (
@@ -49,12 +51,15 @@ function Login(props) {
             <input
               type="email"
               id="email"
+              name="email"
               placeholder='Введите e-mail'
               className="login-form__input"
-              value={email}
-              onChange={handleChangeEmail}
+              value={value.email}
+              onChange={handleChange}
+              required
             />
           </label>
+          <span className="login-form__error">{error.email}</span>
           <label className="login-form__label" htmlFor="password">
             <span className="login-form__span">
               Пароль
@@ -62,18 +67,22 @@ function Login(props) {
             <input
               type="password"
               id="password"
+              name="password"
               placeholder='Введите пароль'
               className="login-form__input"
-              value={password}
-              onChange={handleChangePassword}
+              value={value.password}
+              onChange={handleChange}
+              required
+              minLength={5}
             />
           </label>
+          <span className="login-form__error">{error.password}</span>
         </fieldset>
-        <span className="login-form__error"></span>
+        <span className="login-form__error">{apiError}</span>
 
 
         <section className="login-buttons" aria-label="login-buttons">
-          <button type="submit" className="login-buttons__submit">Войти</button>
+          <button type="submit" className="login-buttons__submit " disabled={!isValidForm}>Войти</button>
           <div className="login-buttons__container">
             <span className="login-buttons__text">Ещё не зарегистрированы?</span>
             <Link to="/signup" className="login-buttons__link">Регистрация</Link>

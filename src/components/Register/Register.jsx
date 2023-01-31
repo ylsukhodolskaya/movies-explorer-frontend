@@ -1,41 +1,35 @@
-import React from "react";
+import { useState } from "react";
 import logo from '../../images/logo__COLOR_main-1.svg';
 import './Register.css'
 
 function Register(props) {
   const { onRegister } = props;
 
-  const [name, setName] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [value, setValue] = useState({name: '', email: '', password: ''});
+  const [error, setError] = useState({name: '', email: '', password: ''});
+  const [isValidForm, setIsValidForm] = useState(false);
+  const [apiError, setApiError] = useState('');
 
-  function handleChangeName(e) {
-    setName(e.target.value);
+  function handleChange(e) {
+    setValue((preValue) => ({
+      ...preValue, 
+      [e.target.name]: e.target.value
+    }));
+    setError((preValue) => ({
+      ...preValue, 
+      [e.target.name]: e.target.validationMessage
+    }));
+    setIsValidForm(e.target.closest('form').checkValidity())
   }
-
-  function handleChangeEmail(e) {
-    setEmail(e.target.value);
-  }
-
-  function handleChangePassword(e) {
-    setPassword(e.target.value);
-  }
-
-  
-
 
   // Обработчик формы при submit
   function handleSubmit(e) {
-    console.log('handleSubmit!!!!!!!!!!!');
     // Запрещаем браузеру переходить по адресу формы
     e.preventDefault();
     // Передаём значения управляемых компонентов во внешний обработчик
-    onRegister({
-      name,
-      email,
-      password
-    });
+    onRegister(value, setApiError);
   }
+
 
   return (
     <article className="register" aria-label="register">
@@ -46,7 +40,7 @@ function Register(props) {
         <h2 className="register__title">Добро пожаловать!</h2>
       </section>
 
-      <form className="register-form"   onSubmit={handleSubmit}>
+      <form className="register-form" noValidate  onSubmit={handleSubmit}>
         <fieldset className="register-form__fieldset">
           <label className="register-form__label" htmlFor="name">
             <span className="register-form__span">
@@ -55,13 +49,17 @@ function Register(props) {
             <input
               type="text"
               id="name"
+              name="name"
               placeholder='Введите имя'
               className="register-form__input"
-              onChange={handleChangeName}
-              value={name}
+              onChange={handleChange}
+              value={value.name}
               required
+              minLength={2}
             />
           </label>
+          <span className="register-form__error">{error.name}</span>
+
           <label className="register-form__label" htmlFor="email">
             <span className="register-form__span">
               E-mail
@@ -69,13 +67,16 @@ function Register(props) {
             <input
               type="email"
               id="email"
+              name="email"
               placeholder='Введите e-mail'
               className="register-form__input"
-              onChange={handleChangeEmail}
-              value={email}
+              onChange={handleChange}
+              value={value.email}
               required
             />
           </label>
+          <span className="register-form__error">{error.email}</span>
+
           <label className="register-form__label" htmlFor="password">
             <span className="register-form__span">
               Пароль
@@ -83,19 +84,22 @@ function Register(props) {
             <input
               type="password"
               id="password"
+              name="password"
               placeholder='Введите пароль'
               className="register-form__input"
-              onChange={handleChangePassword}
-              value={password}
+              onChange={handleChange}
+              value={value.password}
               required
+              minLength={5}
             />
           </label>
+          <span className="register-form__error">{error.password}</span>
         </fieldset>
-        <span className="register-form__error">xnj nj gjikj</span>
+        <span className="register-form__error">{apiError}</span>
      
 
       <section className="register-buttons" aria-label="register-buttons">
-        <button type="submit" className="register-buttons__submit" >Зарегистрироваться</button>
+        <button type="submit" className="register-buttons__submit " disabled={!isValidForm}>Зарегистрироваться</button>
         <div className="register-buttons__container">
           <span className="register-buttons__text">Уже зарегистрированы?</span>
           <a href="/signin" className="register-buttons__link">Войти</a>

@@ -2,13 +2,25 @@ class Api {
   constructor(config) {
     this._url = config.url;
     this._headers = config.headers;
+    this._movies = JSON.parse(localStorage.getItem('saved-movies') || '[]');
   }
+
  //Ошибка 
   _parseResponse(res) {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка MainApi _parseResponse: ${res.status}`)
+    return res.json()
+    .then ((data) => {
+      if (res.ok) {
+        return data;
+      }
+      return Promise.reject(new Error(data.message))
+    }) 
+  }
+
+  _buildHeaders() {
+    const headers = {
+      ...this._headers, authorization: localStorage.getItem('jwt') || ''
+    };
+    return headers;
   }
 
   // Регистрация пользователя
@@ -39,16 +51,15 @@ class Api {
       // Получение информации о пользователе
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
-      headers: this._headers
+      headers: this._buildHeaders()
     }).then(res => this._parseResponse(res));
   }
 
   // Редактирование информации о пользователе
   editUserInfo(data) {
-    console.log('this._headers', this._headers);
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: this._buildHeaders(),
       body: JSON.stringify({
         name: data.name,
         email: data.email
@@ -58,26 +69,44 @@ class Api {
 
 //получение карточека
   getMoviesCard() {
-    return fetch(`${this._url}/movies`, {
-      headers: this._headers
-    }).then(res => this._parseResponse(res));
+    if(this._movies.length === 0) {
+      return fetch(`${this._url}/movies`, {
+        headers: this._buildHeaders()
+      }).then(res => this._parseResponse(res))
+      .then((movies) => {
+        this._movies = movies;
+        localStorage.setItem('saved-movies', JSON.stringify(movies));
+        return movies;
+      });
+    }
+    return Promise.resolve(this._movies)
   }
 
   //удаление карточки
   deleteCard(cardId) {
     return fetch(`${this._url}/movies/${cardId}`, {
       method: 'DELETE',
-      headers: this._headers
-    }).then(res => this._parseResponse(res));
+      headers: this._buildHeaders()
+    }).then(res => this._parseResponse(res))
+    .then((movie) => {
+      this._movies = this._movies.filter((movie) => movie._id !== cardId);
+      localStorage.setItem('saved-movies', JSON.stringify(this._movies));
+      return movie;
+    });
   }
 
   //сохранение карточки
   addCard(data) {
     return fetch(`${this._url}/movies`, {
       method: 'POST',
-      headers: this._headers,
+      headers: this._buildHeaders(),
       body: JSON.stringify(data)
-    }).then(res => this._parseResponse(res));
+    }).then(res => this._parseResponse(res))
+    .then((movie) => {
+      this._movies.push(movie);
+      localStorage.setItem('saved-movies', JSON.stringify(this._movies));
+      return movie;
+    });
   }
 }
 

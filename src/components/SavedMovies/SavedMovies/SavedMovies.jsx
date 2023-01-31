@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import SearchForm from "../../Movies/SearchForm/SearchForm.jsx";
 import MoviesCardList from "../../Movies/MoviesCardList/MoviesCardList.jsx";
 import { mainApi } from '../../../utils/MainApi.jsx';
+import { moviesApi } from '../../../utils/MoviesApi.jsx';
 //отображение кнопки ЕЩЕ
 const renderCards = () => {
   const render = {
@@ -48,42 +49,21 @@ function SavedMovies() {
   }
 
   useEffect(() => {
-    const token = localStorage.getItem('jwt');
-    mainApi.setToken(token);
-    //прелоадер
-    const savedMovies = JSON.parse(localStorage.getItem('saved-movies') || '[]');
-    if (savedMovies.length === 0) {
       mainApi.getMoviesCard()
         .then((serverCards) => {
-          console.log('333333333serverCards', serverCards);
-          localStorage.setItem('saved-movies', JSON.stringify(serverCards));
           setCards(serverCards);
           setCardsFiltetred(serverCards);
           //прелоалер
         })
-    } else {
-      setCards(savedMovies);
-      setCardsFiltetred(savedMovies);
-      setRenderCounter(render.start);
-      //прелоадер
-    }
   }, [])
 
   const saveMovie = (card) => {
 
     mainApi.deleteCard(card._id)
       .then(() => {
+        moviesApi.deleteCard(card.movieId)
         setCardsFiltetred((savedCards) => {
-          const localSavedCards = JSON.parse(localStorage.getItem('local-movies') || '[]');
-          const updateLocalSavedCards = localSavedCards.map((movie) => {
-            if (movie.id === card.movieId) {
-              movie.saved = false;
-            }
-            return movie;
-          })
-          localStorage.setItem('local-movies', JSON.stringify(updateLocalSavedCards))
           const filteredSavedCards = savedCards.filter(savedCard => savedCard._id !== card._id);
-          localStorage.setItem('saved-movies', JSON.stringify(filteredSavedCards));
           return filteredSavedCards;
         })
       })
