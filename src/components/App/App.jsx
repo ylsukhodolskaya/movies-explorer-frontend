@@ -1,9 +1,7 @@
-
 import './App.css';
 import { Switch, Route, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Header from '../Header/Header.jsx';
-import Navigation from '../Navigation/Navigation.jsx';
 import Main from '../Main/Main.jsx';
 import Movies from '../Movies/Movies/Movies.jsx';
 import SavedMovies from '../SavedMovies/SavedMovies/SavedMovies.jsx';
