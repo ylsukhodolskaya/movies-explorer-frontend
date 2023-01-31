@@ -75,8 +75,10 @@ function SearchForm(props) {
           >
           </button>
         </fieldset>
+        <span className="search-film__error">{error.name}</span>
 
         <fieldset className='search-film__filter'>
+
           <input 
           type="checkbox" 
           className='search-film__checkbox' 
@@ -85,7 +87,6 @@ function SearchForm(props) {
           name='durationMovieShort'  
           checked={value.durationMovieShort} 
           />
-          <span>{error.name}</span>
           <label htmlFor="shortfilm" className='search-film__checkbox-container'></label>
           <label htmlFor="shortfilm" className='search-film__checkbox-label' >Короткометражка</label>
         </fieldset>

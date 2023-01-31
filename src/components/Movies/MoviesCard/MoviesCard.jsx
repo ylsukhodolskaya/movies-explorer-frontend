@@ -1,5 +1,7 @@
-import React from "react";
+// import React from "react";
 import './MoviesCard.css';
+import { useLocation } from 'react-router-dom';
+
 
 function MoviesCard(props) {
   const { card, saveMovie } = props;
@@ -11,6 +13,7 @@ function MoviesCard(props) {
 const handleSaveMovie = () => 
 saveMovie(card);
 
+const location = useLocation();
 const classButton = card.saved ? "movies__item-bookmark movies__item-bookmark_active" : "movies__item-bookmark";
 
   return (
@@ -21,9 +24,10 @@ const classButton = card.saved ? "movies__item-bookmark movies__item-bookmark_ac
             <h2 className='movies__item-name'>{card.nameRU}</h2>
             <p className='movies__item-duration'>{durationMovie}</p>
           </div>
-          <button className={classButton} onClick={handleSaveMovie}></button>
+          {(location.pathname === "/movies") && <button className={classButton} onClick={handleSaveMovie}></button>}
+          {(location.pathname === "/saved-movies") && <button className='movies__item-bookmark movies__item-bookmark_delete-from-saved' onClick={handleSaveMovie}></button>}
         </div>
-        <a href={card.trailerLink} className='movies__item-link'>
+        <a href={card.trailerLink} className='movies__item-link' target='_blank' rel='noreferrer'>
           <img src={card.thumbnail} alt={card.nameRU} className='movies__item-image' />
         </a>
       </section>

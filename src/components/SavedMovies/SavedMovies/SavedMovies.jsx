@@ -2,9 +2,36 @@ import { useState, useEffect } from 'react';
 import SearchForm from "../../Movies/SearchForm/SearchForm.jsx";
 import MoviesCardList from "../../Movies/MoviesCardList/MoviesCardList.jsx";
 import { mainApi } from '../../../utils/MainApi.jsx';
-
+//отображение кнопки ЕЩЕ
+const renderCards = () => {
+  const render = {
+    start: 12,
+    load: 3
+  };
+  if (window.innerWidth < 1001) {
+    render.start = 8;
+    render.load = 2;
+  }
+  if (window.innerWidth < 706) {
+    render.start = 5;
+    render.load = 1;
+  }
+  return render;
+}
 
 function SavedMovies() {
+
+  //===========================
+  //отображение кнопки ЕЩЕ
+  const render = renderCards();
+  const [renderCounter, setRenderCounter] = useState(render.start);
+
+  const changeCounter = () => {
+    const render = renderCards();
+    setRenderCounter(renderCounter + render.load);
+  }
+  //===========================
+
 
   const [cards, setCards] = useState([]);
   const [cardsFiltered, setCardsFiltetred] = useState([]);
@@ -28,15 +55,16 @@ function SavedMovies() {
     if (savedMovies.length === 0) {
       mainApi.getMoviesCard()
         .then((serverCards) => {
-          console.log ('333333333serverCards', serverCards);
-          localStorage.setItem('saved-movies', JSON.stringify(serverCards.data));
-          setCards(serverCards.data);
-          setCardsFiltetred(serverCards.data);
+          console.log('333333333serverCards', serverCards);
+          localStorage.setItem('saved-movies', JSON.stringify(serverCards));
+          setCards(serverCards);
+          setCardsFiltetred(serverCards);
           //прелоалер
         })
     } else {
       setCards(savedMovies);
       setCardsFiltetred(savedMovies);
+      setRenderCounter(render.start);
       //прелоадер
     }
   }, [])
@@ -46,7 +74,7 @@ function SavedMovies() {
     mainApi.deleteCard(card._id)
       .then(() => {
         setCardsFiltetred((savedCards) => {
-          const localSavedCards = JSON.parse(localStorage.getItem('local-movies') || []);
+          const localSavedCards = JSON.parse(localStorage.getItem('local-movies') || '[]');
           const updateLocalSavedCards = localSavedCards.map((movie) => {
             if (movie.id === card.movieId) {
               movie.saved = false;
@@ -61,6 +89,7 @@ function SavedMovies() {
       })
   }
 
+  console.log('cardsFiltered', cardsFiltered);
 
   return (
     <>
@@ -70,10 +99,13 @@ function SavedMovies() {
         required={false}
       />
       <MoviesCardList
-        cards={cardsFiltered}
+        cards={cardsFiltered.filter((_, i) => i < renderCounter)}
         // searchMovies={searchMovies}
-        saveMovie={saveMovie} 
-        />
+        saveMovie={saveMovie}
+      />
+      {(cardsFiltered.length > renderCounter) && <article className="more" aria-label="more">
+        <button type="button" className="more__button" onClick={changeCounter}>Ещё</button>
+      </article>}
     </>
   )
 }

@@ -52,7 +52,12 @@
   opacity: 80%;
 }
 
-
+.search-film__error {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #EE3465;
+}
 
 .search-film__filter {
   display: flex;

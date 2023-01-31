@@ -52,24 +52,24 @@
 }
 
 .movies__item-bookmark {
-  width: 30px;
-  height: 30px;
+  min-width: 30px;
+  min-height: 30px;
   background-image: url('../../../images/save_gray.svg');
   border: none;
   cursor: pointer;
 }
 
 .movies__item-bookmark_active {
-  width: 30px;
-  height: 30px;
+  min-width: 30px;
+  min-height: 30px;
   background-image: url('../../../images/save_green.svg');
   border: none;
   cursor: pointer;
 }
 
 .movies__item-bookmark_delete-from-saved {
-  width: 30px;
-  height: 30px;
+  min-width: 30px;
+  min-height: 30px;
   background-image: url('../../../images/delete_from_saved.svg');
   border: none;
   cursor: pointer;

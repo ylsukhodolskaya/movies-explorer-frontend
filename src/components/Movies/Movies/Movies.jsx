@@ -4,6 +4,7 @@ import SearchForm from "../SearchForm/SearchForm.jsx";
 import { moviesApi } from "../../../utils/MoviesApi.jsx";
 import { mainApi } from '../../../utils/MainApi.jsx';
 
+//отображение кнопки ЕЩЕ
 const renderCards = () => {
   const render = {
     start: 12, 
@@ -23,6 +24,8 @@ const renderCards = () => {
 
 function Movies() {
 
+    //===========================
+//отображение кнопки ЕЩЕ
   const render = renderCards();
 const [renderCounter, setRenderCounter] = useState(render.start);
 
@@ -30,6 +33,8 @@ const changeCounter = () => {
   const render = renderCards();
   setRenderCounter(renderCounter+render.load);
 }
+    //===========================
+
 
   //переменная состояния cards и эффект при монтировании, который будет вызывать moviesApi.getMoviesCards() и обновлять стейт-переменную из полученного значения
 
@@ -59,6 +64,9 @@ const changeCounter = () => {
         setPreloader(true);
         Promise.all([moviesApi.getMoviesCards(), mainApi.getMoviesCard()])
           .then(([beatCards, localCards]) => {
+            console.log('localCards', localCards);
+            console.log('beatCards', beatCards);
+
             const mergeCards = beatCards.map(card => {
               const localCard = localCards.find((localCard) => localCard.movieId === card.id);
               console.log('localCard', localCard);
