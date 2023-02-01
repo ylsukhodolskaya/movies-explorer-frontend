@@ -5,15 +5,15 @@ class Api {
     this._movies = JSON.parse(localStorage.getItem('saved-movies') || '[]');
   }
 
- //Ошибка 
+  //Ошибка 
   _parseResponse(res) {
     return res.json()
-    .then ((data) => {
-      if (res.ok) {
-        return data;
-      }
-      return Promise.reject(new Error(data.message))
-    }) 
+      .then((data) => {
+        if (res.ok) {
+          return data;
+        }
+        return Promise.reject(new Error(data.message))
+      })
   }
 
   _buildHeaders() {
@@ -41,14 +41,14 @@ class Api {
     }).then(res => this._parseResponse(res));
   }
 
-    // Проверка токена пользователя
-    setToken(token) {
-      // this._headers.authorization = token;
-      this._headers.authorization = `Bearer ${token}`;
+  // Проверка токена пользователя
+  setToken(token) {
+    // this._headers.authorization = token;
+    this._headers.authorization = `Bearer ${token}`;
 
-    }
+  }
 
-      // Получение информации о пользователе
+  // Получение информации о пользователе
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
       headers: this._buildHeaders()
@@ -67,17 +67,17 @@ class Api {
     }).then(res => this._parseResponse(res));
   }
 
-//получение карточека
+  //получение карточека
   getMoviesCard() {
-    if(this._movies.length === 0) {
+    if (this._movies.length === 0) {
       return fetch(`${this._url}/movies`, {
         headers: this._buildHeaders()
       }).then(res => this._parseResponse(res))
-      .then((movies) => {
-        this._movies = movies;
-        localStorage.setItem('saved-movies', JSON.stringify(movies));
-        return movies;
-      });
+        .then((movies) => {
+          this._movies = movies;
+          localStorage.setItem('saved-movies', JSON.stringify(movies));
+          return movies;
+        });
     }
     return Promise.resolve(this._movies)
   }
@@ -88,11 +88,11 @@ class Api {
       method: 'DELETE',
       headers: this._buildHeaders()
     }).then(res => this._parseResponse(res))
-    .then((movie) => {
-      this._movies = this._movies.filter((movie) => movie._id !== cardId);
-      localStorage.setItem('saved-movies', JSON.stringify(this._movies));
-      return movie;
-    });
+      .then((movie) => {
+        this._movies = this._movies.filter((movie) => movie._id !== cardId);
+        localStorage.setItem('saved-movies', JSON.stringify(this._movies));
+        return movie;
+      });
   }
 
   //сохранение карточки
@@ -102,17 +102,17 @@ class Api {
       headers: this._buildHeaders(),
       body: JSON.stringify(data)
     }).then(res => this._parseResponse(res))
-    .then((movie) => {
-      this._movies.push(movie);
-      localStorage.setItem('saved-movies', JSON.stringify(this._movies));
-      return movie;
-    });
+      .then((movie) => {
+        this._movies.push(movie);
+        localStorage.setItem('saved-movies', JSON.stringify(this._movies));
+        return movie;
+      });
   }
 }
 
 export const mainApi = new Api({
-  url: "http://localhost:3002",
-  // url: "https://api-movies-explorer.nomoredomains.club",
+  // url: "http://localhost:3002",
+  url: "https://api-movies-explorer.nomoredomains.club",
   headers: {
     "content-type": "application/json",
     "authorization": "",

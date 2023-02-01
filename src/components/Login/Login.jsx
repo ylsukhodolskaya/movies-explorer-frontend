@@ -1,29 +1,27 @@
-import  { useState } from "react";
+import { useState } from "react";
 import logo from '../../images/logo__COLOR_main-1.svg';
 import './Login.css';
 import { Link } from 'react-router-dom';
 
-
 function Login(props) {
   const { onLogin } = props;
 
-  const [value, setValue] = useState({email: '', password: ''});
-  const [error, setError] = useState({email: '', password: ''});
+  const [value, setValue] = useState({ email: '', password: '' });
+  const [error, setError] = useState({ email: '', password: '' });
   const [isValidForm, setIsValidForm] = useState(false);
   const [apiError, setApiError] = useState('');
 
   function handleChange(e) {
     setValue((preValue) => ({
-      ...preValue, 
+      ...preValue,
       [e.target.name]: e.target.value
     }));
     setError((preValue) => ({
-      ...preValue, 
+      ...preValue,
       [e.target.name]: e.target.validationMessage
     }));
     setIsValidForm(e.target.closest('form').checkValidity())
   }
-
 
   // Обработчик формы при submit
   function handleSubmit(e) {
@@ -79,7 +77,6 @@ function Login(props) {
           <span className="login-form__error">{error.password}</span>
         </fieldset>
         <span className="login-form__error">{apiError}</span>
-
 
         <section className="login-buttons" aria-label="login-buttons">
           <button type="submit" className="login-buttons__submit " disabled={!isValidForm}>Войти</button>

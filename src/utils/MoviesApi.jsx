@@ -3,7 +3,6 @@ class MoviesApi {
     this._url = config.url;
     this._headers = config.headers;
     this._movies = JSON.parse(localStorage.getItem('local-movies') || '[]');
-
   }
 
   //Ошибка 
@@ -29,7 +28,6 @@ class MoviesApi {
           return movies;
         });
     }
-    // return Promise.resolve(this._movies)
   }
 
   deleteCard(cardId) {
@@ -53,7 +51,6 @@ class MoviesApi {
       localStorage.setItem('local-movies', JSON.stringify(this._movies));
       return this._movies;
     }
-
   }
 }
 

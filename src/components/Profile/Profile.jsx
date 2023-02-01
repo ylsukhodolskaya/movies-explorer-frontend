@@ -8,11 +8,13 @@ function Profile(props) {
   const currentUser = useContext(CurrentUserContext);
 
   const [value, setValue] = useState({ name: currentUser.name, email: currentUser.email });
-  // const [name, setName] = React.useState(currentUser.name);
-  // const [email, setEmail] = React.useState(currentUser.email);
   const [error, setError] = useState({ name: '', email: '' });
   const [isValidForm, setIsValidForm] = useState(false);
-  const [apiError, setApiError] = useState('');
+  const [apiError, setApiError] = useState(null);
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [isSubmit, setIsSubmit] = useState(false);
+
+  const hasError = apiError || error.email || error.name;
 
   function handleChange(e) {
     setValue((preValue) => ({
@@ -23,16 +25,18 @@ function Profile(props) {
       ...preValue,
       [e.target.name]: e.target.validationMessage
     }));
-    setIsValidForm(e.target.closest('form').checkValidity())
+    setIsValidForm(e.target.closest('form').checkValidity());
+    setIsSubmit(false);
   }
 
-
+  //кнопка редактировать становится неактивной, если данные совпадают
+  useEffect(() => {
+    setIsDisabled(currentUser.name === value.name && currentUser.email === value.email)
+  }, [value.name, value.email, currentUser.name, currentUser.email]);
 
   // // После загрузки текущего пользователя из API
   // его данные будут использованы в управляемых компонентах.
   useEffect(() => {
-    // setName(currentUser.name);
-    // setEmail(currentUser.email);
     setValue({ name: currentUser.name, email: currentUser.email })
   }, [currentUser.name, currentUser.email]);
 
@@ -43,6 +47,7 @@ function Profile(props) {
 
     // Передаём значения управляемых компонентов во внешний обработчик
     onProfile(value, setApiError);
+    setIsSubmit(true);
   }
 
   return (
@@ -86,8 +91,8 @@ function Profile(props) {
         </fieldset>
 
         <fieldset className="profile-form__buttons">
-          <span className="profile-form__error">{apiError || error.email || error.name}</span>
-          <button type="submit" className="profile-form__button-edit" disabled={!isValidForm} >Редактировать</button>
+          <span className={hasError ? "profile-form__error" : "profile-form__success"}>{!isSubmit && !hasError ? '' : hasError || 'Данные успешно обновлены'}</span>
+          <button type="submit" className="profile-form__button-edit" disabled={!isValidForm || isDisabled} >Редактировать</button>
           <button type="button" className="profile-form__button-log-out" onClick={logOut}>Выйти из аккаунта</button>
         </fieldset>
       </form>

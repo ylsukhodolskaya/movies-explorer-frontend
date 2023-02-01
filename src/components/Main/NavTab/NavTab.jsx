@@ -2,8 +2,6 @@ import React from "react";
 import './NavTab.css';
 import account_logo from '../../../images/icon__COLOR_icon-main.svg';
 
-
-
 function NavTab({ isOpen, onClose }) {
   return (
     <article className={`navtab ${isOpen && 'navtab_opened'}`} aria-label="navtab">

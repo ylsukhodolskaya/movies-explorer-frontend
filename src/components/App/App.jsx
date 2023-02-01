@@ -31,8 +31,6 @@ function App() {
   // Переменная состояния пользователя
   const [currentUser, setCurrentUser] = useState(defaultUserInfo);
 
-
-
   function checkToken() {
     const token = localStorage.getItem('jwt') || '';
     mainApi.setToken(token);
@@ -58,6 +56,7 @@ function App() {
   //обновление функции checkToken 
   useEffect(() => {
     checkToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn]);
 
   // Регистрация пользователя
@@ -79,11 +78,12 @@ function App() {
   }
 
   // Авторизация пользователя
-  function handleLogin(loginData, callback = () => { }) {
+  function handleLogin(loginData, callback) {
     mainApi.login(loginData)
       .then((result) => {
         localStorage.setItem('jwt', result.token);
         setLoggedIn(true);
+        callback('');
         history.push('/movies');
       })
       .catch((err) => {
@@ -92,12 +92,13 @@ function App() {
   }
 
   // Изменение данных профиля
-  function handleUpdateUser(userData, callback = () => { }) {
+  function handleUpdateUser(userData, callback) {
     const token = localStorage.getItem('jwt') || '';
     mainApi.setToken(token);
     mainApi.editUserInfo(userData)
       .then((userDataServer) => {
         setCurrentUser({ ...currentUser, ...userDataServer });
+        callback('');
       })
       .catch((err) => {
         callback(err.message)
@@ -115,9 +116,7 @@ function App() {
   return (
 
     <CurrentUserContext.Provider value={currentUser}>
-
       <div>
-
         <Header
           onNavBar={handleNavBarClick}
           loggedIn={loggedIn}
@@ -167,7 +166,6 @@ function App() {
           onClose={closeNavTabPopup}
         />
         <Footer />
-
       </div>
     </CurrentUserContext.Provider>
   );

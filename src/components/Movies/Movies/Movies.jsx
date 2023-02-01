@@ -21,7 +21,6 @@ const renderCards = () => {
   return render;
 }
 
-
 function Movies() {
 
   //===========================
@@ -35,13 +34,11 @@ function Movies() {
   }
   //===========================
 
-
   //переменная состояния cards и эффект при монтировании, который будет вызывать moviesApi.getMoviesCards() и обновлять стейт-переменную из полученного значения
 
   const [cards, setCards] = useState([]);
   const [cardsFiltered, setCardsFiltetred] = useState([]);
   const [searchMovies, setSearchMovies] = useState(false);
-
 
   //прелоадер
   const [preloader, setPreloader] = useState(false);
@@ -137,8 +134,6 @@ function Movies() {
         })
     }
   }
-
-
 
   return (
     <>

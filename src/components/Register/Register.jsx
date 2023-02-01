@@ -4,19 +4,19 @@ import './Register.css'
 
 function Register(props) {
   const { onRegister } = props;
-
-  const [value, setValue] = useState({name: '', email: '', password: ''});
-  const [error, setError] = useState({name: '', email: '', password: ''});
+  
+  const [value, setValue] = useState({ name: '', email: '', password: '' });
+  const [error, setError] = useState({ name: '', email: '', password: '' });
   const [isValidForm, setIsValidForm] = useState(false);
   const [apiError, setApiError] = useState('');
 
   function handleChange(e) {
     setValue((preValue) => ({
-      ...preValue, 
+      ...preValue,
       [e.target.name]: e.target.value
     }));
     setError((preValue) => ({
-      ...preValue, 
+      ...preValue,
       [e.target.name]: e.target.validationMessage
     }));
     setIsValidForm(e.target.closest('form').checkValidity())
@@ -40,7 +40,7 @@ function Register(props) {
         <h2 className="register__title">Добро пожаловать!</h2>
       </section>
 
-      <form className="register-form" noValidate  onSubmit={handleSubmit}>
+      <form className="register-form" noValidate onSubmit={handleSubmit}>
         <fieldset className="register-form__fieldset">
           <label className="register-form__label" htmlFor="name">
             <span className="register-form__span">
@@ -96,15 +96,15 @@ function Register(props) {
           <span className="register-form__error">{error.password}</span>
         </fieldset>
         <span className="register-form__error">{apiError}</span>
-     
 
-      <section className="register-buttons" aria-label="register-buttons">
-        <button type="submit" className="register-buttons__submit " disabled={!isValidForm}>Зарегистрироваться</button>
-        <div className="register-buttons__container">
-          <span className="register-buttons__text">Уже зарегистрированы?</span>
-          <a href="/signin" className="register-buttons__link">Войти</a>
-        </div>
-      </section>
+
+        <section className="register-buttons" aria-label="register-buttons">
+          <button type="submit" className="register-buttons__submit " disabled={!isValidForm}>Зарегистрироваться</button>
+          <div className="register-buttons__container">
+            <span className="register-buttons__text">Уже зарегистрированы?</span>
+            <a href="/signin" className="register-buttons__link">Войти</a>
+          </div>
+        </section>
       </form>
     </article>
   )

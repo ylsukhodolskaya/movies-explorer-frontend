@@ -3,6 +3,8 @@ import SearchForm from "../../Movies/SearchForm/SearchForm.jsx";
 import MoviesCardList from "../../Movies/MoviesCardList/MoviesCardList.jsx";
 import { mainApi } from '../../../utils/MainApi.jsx';
 import { moviesApi } from '../../../utils/MoviesApi.jsx';
+
+
 //отображение кнопки ЕЩЕ
 const renderCards = () => {
   const render = {
@@ -33,14 +35,10 @@ function SavedMovies() {
   }
   //===========================
 
-
   const [cards, setCards] = useState([]);
   const [cardsFiltered, setCardsFiltetred] = useState([]);
-  // const [searchMovies, setSearchMovies] = useState(false);
 
   const filterCards = (search) => {
-    //вставить фильтра карточек по названию и продолжительности
-    // setSearchMovies(true);
     setCardsFiltetred(cards.filter((card) => {
       const nameMovie = card.nameRU.toLowerCase().includes(search.name.toLowerCase());
       const durationMovieShort = search.durationMovieShort ? card.duration <= 40 : true;
@@ -49,12 +47,11 @@ function SavedMovies() {
   }
 
   useEffect(() => {
-      mainApi.getMoviesCard()
-        .then((serverCards) => {
-          setCards(serverCards);
-          setCardsFiltetred(serverCards);
-          //прелоалер
-        })
+    mainApi.getMoviesCard()
+      .then((serverCards) => {
+        setCards(serverCards);
+        setCardsFiltetred(serverCards);
+      })
   }, [])
 
   const saveMovie = (card) => {
@@ -78,7 +75,6 @@ function SavedMovies() {
       />
       <MoviesCardList
         cards={cardsFiltered.filter((_, i) => i < renderCounter)}
-        // searchMovies={searchMovies}
         saveMovie={saveMovie}
       />
       {(cardsFiltered.length > renderCounter) && <article className="more" aria-label="more">

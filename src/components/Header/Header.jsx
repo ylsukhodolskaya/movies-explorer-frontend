@@ -4,11 +4,8 @@ import './Header.css';
 import { useLocation, Link } from "react-router-dom";
 import Navigation from '../Navigation/Navigation.jsx';
 
-
-
-
 function Header(props) {
-  const {onNavBar, loggedIn} = props;
+  const { onNavBar, loggedIn } = props;
 
   const { pathname } = useLocation();
   const isLoginRegisterPage = pathname === '/signin' || pathname === '/signup';

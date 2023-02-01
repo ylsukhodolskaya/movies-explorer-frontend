@@ -54,27 +54,27 @@ function SearchForm(props) {
 
   return (
     <article className='search-film' aria-label="search-film">
-      <form 
-      action="/" 
-      className='search-film__form' 
-      onSubmit={handleSubmit}
-      ref={formRef}
-      noValidate
+      <form
+        action="/"
+        className='search-film__form'
+        onSubmit={handleSubmit}
+        ref={formRef}
+        noValidate
       >
         <fieldset className='search-film__container'>
-          <input 
-          type="text" 
-          className='search-film__input' 
-          placeholder='Фильм' 
-          required={required}
-          onChange={handleChange}
-          value={value.name}
-          name="name"
+          <input
+            type="text"
+            className='search-film__input'
+            placeholder='Фильм'
+            required={required}
+            onChange={handleChange}
+            value={value.name}
+            name="name"
           />
-          <button 
-          className='search-film__button'
-          disabled={isDisabledButton}
-          onClick={handleSubmit}
+          <button
+            className='search-film__button'
+            disabled={isDisabledButton}
+            onClick={handleSubmit}
           >
           </button>
         </fieldset>
@@ -82,13 +82,13 @@ function SearchForm(props) {
 
         <fieldset className='search-film__filter'>
 
-          <input 
-          type="checkbox" 
-          className='search-film__checkbox' 
-          id="shortfilm" 
-          onChange={handleCheckbox} 
-          name='durationMovieShort'  
-          checked={value.durationMovieShort} 
+          <input
+            type="checkbox"
+            className='search-film__checkbox'
+            id="shortfilm"
+            onChange={handleCheckbox}
+            name='durationMovieShort'
+            checked={value.durationMovieShort}
           />
           <label htmlFor="shortfilm" className='search-film__checkbox-container'></label>
           <label htmlFor="shortfilm" className='search-film__checkbox-label' >Короткометражка</label>
