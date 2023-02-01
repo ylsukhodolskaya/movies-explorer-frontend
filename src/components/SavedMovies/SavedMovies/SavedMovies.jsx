@@ -69,8 +69,6 @@ function SavedMovies() {
       })
   }
 
-  console.log('cardsFiltered', cardsFiltered);
-
   return (
     <>
       <SearchForm

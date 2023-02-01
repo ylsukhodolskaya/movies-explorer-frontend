@@ -67,12 +67,10 @@ function Movies() {
           .then(([beatCards, localCards]) => {
             const mergeCards = beatCards.map(card => {
               const localCard = localCards.find((localCard) => localCard.movieId === card.id);
-              console.log('localCard', localCard);
               card._id = localCard !== undefined ? localCard._id : '';
               card.movieId = card.id;
               card.thumbnail = `https://api.nomoreparties.co/${card.image.url}`;
               card.saved = localCard !== undefined;
-              console.log('card', card);
               return card;
             })
             setCards(mergeCards);

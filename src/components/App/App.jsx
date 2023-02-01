@@ -39,23 +39,16 @@ function App() {
     if (token) {
       mainApi.getUserInfo()
         .then((user) => {
-          console.log(user)
           if (user) {
             setLoggedIn(true);
             setCurrentUser(user);
-            // setCards(cards.data.reverse());
-            // history.push('/');
-            console.log('Token OK App.jsx');
           } else {
             setLoggedIn(false);
             history.push('/');
-            console.log('Ошибка токена App.jsx')
           }
         })
         .catch((err) => {
           setLoggedIn(false)
-          console.log('//////Ошибка токена App.jsx//////', err);
-          // openInfoTooltipPopup(false);
         });
     } else {
       setLoggedIn(false)
@@ -71,61 +64,44 @@ function App() {
   function handleRegistration(registrationData, callback) {
     mainApi.register(registrationData)
       .then((result) => {
-        if (result) {
-          // openInfoTooltipPopup(true);
-          // после того как рарегался нужно залогинить его, получить токен, /получить данные пользователя и перекинуть на movies
-          history.push('/signin');
-          setCurrentUser(result);
-          console.log('Регистрация ОК App.jsx');
-          callback('')
-        } else {
-          // openInfoTooltipPopup(false);
-          console.log('Ошибка при регистрации в App.jsx')
-        }
+        setCurrentUser(result);
+        return mainApi.login({ email: registrationData.email, password: registrationData.password })
+      })
+      .then((result) => {
+        localStorage.setItem('jwt', result.token);
+        setLoggedIn(true);
+        callback('');
+        history.push('/movies');
       })
       .catch((err) => {
-        console.log('/////Ошибка при регистрации в App.jsx/////', err);
-        // openInfoTooltipPopup(false);
         callback(err.message)
       })
   }
 
   // Авторизация пользователя
-  function handleLogin(loginData) {
+  function handleLogin(loginData, callback = () => { }) {
     mainApi.login(loginData)
       .then((result) => {
-        if (result) {
-          localStorage.setItem('jwt', result.token);
-          setLoggedIn(true);
-          history.push('/movies');
-          console.log('Login ОК App.jsx');
-          // checkToken();
-        } else {
-          // openInfoTooltipPopup(false);
-          console.log('Ошибка при авторизации в App.jsx')
-        }
+        localStorage.setItem('jwt', result.token);
+        setLoggedIn(true);
+        history.push('/movies');
       })
       .catch((err) => {
-        console.log('//////Ошибка при авторизации в App.jsx///////', err);
-        // openInfoTooltipPopup(false);
+        callback(err.message)
       })
   }
 
   // Изменение данных профиля
-  function handleUpdateUser(userData) {
-    console.log('userData', userData);
+  function handleUpdateUser(userData, callback = () => { }) {
     const token = localStorage.getItem('jwt') || '';
     mainApi.setToken(token);
     mainApi.editUserInfo(userData)
       .then((userDataServer) => {
-        console.log('userDataServer', userDataServer);
         setCurrentUser({ ...currentUser, ...userDataServer });
       })
       .catch((err) => {
-        console.log('///// ОШИБКА App.jsx Изменение данных профиля/////', err);
-        // openInfoTooltipPopup(false);
+        callback(err.message)
       })
-    // .finally(() => closeAllPopups());
   };
 
   // Выход из аккаунта

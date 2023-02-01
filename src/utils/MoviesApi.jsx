@@ -17,13 +17,7 @@ class MoviesApi {
       })
   }
 
-  // Получение карточек
-  // getMoviesCards() {
-  //   return fetch(`${this._url}`, {
-  //     headers: this._headers
-  //   }).then(res => this._parseResponse(res));
-  // }
-
+  //получение карточек
   getMoviesCards() {
     if (this._movies.length === 0) {
       return fetch(`${this._url}`, {
@@ -50,10 +44,7 @@ class MoviesApi {
   }
 
   addCard(card) {
-    console.log('card', card);
-
     const localCard = this._movies.find((localCard) => localCard.id === card.movieId);
-    console.log('localCard', localCard)
     if (localCard) {
       localCard._id = card._id;
       localCard.movieId = localCard.id;
