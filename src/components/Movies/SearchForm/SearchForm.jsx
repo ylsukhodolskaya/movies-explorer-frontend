@@ -22,6 +22,7 @@ function SearchForm(props) {
       filterCards(value);
       setValue({ name: '', durationMovieShort: false });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleChange = (e) => {
