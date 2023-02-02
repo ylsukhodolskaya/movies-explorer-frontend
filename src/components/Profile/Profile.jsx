@@ -86,6 +86,7 @@ function Profile(props) {
               onChange={handleChange}
               value={value.email}
               required
+              pattern=".+@.+\..+"
             />
           </label>
         </fieldset>

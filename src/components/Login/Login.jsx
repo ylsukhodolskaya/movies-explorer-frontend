@@ -55,6 +55,7 @@ function Login(props) {
               value={value.email}
               onChange={handleChange}
               required
+              pattern=".+@.+\..+"
             />
           </label>
           <span className="login-form__error">{error.email}</span>

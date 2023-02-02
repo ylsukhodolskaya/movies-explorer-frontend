@@ -74,6 +74,7 @@ function Register(props) {
               onChange={handleChange}
               value={value.email}
               required
+              pattern=".+@.+\..+"
             />
           </label>
           <span className="register-form__error">{error.email}</span>

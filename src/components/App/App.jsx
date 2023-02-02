@@ -162,8 +162,6 @@ function App() {
             loggedIn={loggedIn}
           />
 
-
-
           <Route path="*">
             <NotFound />
           </Route>
