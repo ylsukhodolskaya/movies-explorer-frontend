@@ -37,9 +37,11 @@ function SavedMovies() {
 
   const [cards, setCards] = useState([]);
   const [cardsFiltered, setCardsFiltetred] = useState([]);
+  const [searchMovies, setSearchMovies] = useState(false);
 
 
   const filterCards = (search) => {
+    setSearchMovies(true);
     setCardsFiltetred(cards.filter((card) => {
       const nameMovie = card.nameRU.toLowerCase().includes(search.name.toLowerCase());
       const durationMovieShort = search.durationMovieShort ? card.duration <= 40 : true;
@@ -50,7 +52,6 @@ function SavedMovies() {
   useEffect(() => {
     mainApi.getMoviesCard()
       .then((serverCards) => {
-        console.log('serverCards', serverCards);
         setCards(serverCards);
         setCardsFiltetred(serverCards);
       })
@@ -77,6 +78,7 @@ function SavedMovies() {
       />
       <MoviesCardList
         cards={cardsFiltered.filter((_, i) => i < renderCounter)}
+        searchMovies={searchMovies}
         saveMovie={saveMovie}
       />
       {(cardsFiltered.length > renderCounter) && <article className="more" aria-label="more">
