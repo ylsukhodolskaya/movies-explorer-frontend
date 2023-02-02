@@ -38,6 +38,7 @@ function SavedMovies() {
   const [cards, setCards] = useState([]);
   const [cardsFiltered, setCardsFiltetred] = useState([]);
 
+
   const filterCards = (search) => {
     setCardsFiltetred(cards.filter((card) => {
       const nameMovie = card.nameRU.toLowerCase().includes(search.name.toLowerCase());
@@ -49,6 +50,7 @@ function SavedMovies() {
   useEffect(() => {
     mainApi.getMoviesCard()
       .then((serverCards) => {
+        console.log('serverCards', serverCards);
         setCards(serverCards);
         setCardsFiltetred(serverCards);
       })

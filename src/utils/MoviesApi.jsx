@@ -52,6 +52,11 @@ class MoviesApi {
       return this._movies;
     }
   }
+
+  //сброс карточек при логауте
+  reset() {
+    this._movies = []
+  }
 }
 
 export const moviesApi = new MoviesApi({

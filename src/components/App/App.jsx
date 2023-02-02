@@ -15,6 +15,7 @@ import NavTab from '../Main/NavTab/NavTab.jsx';
 import { mainApi } from '../../utils/MainApi.jsx'
 // Импортируем объект контекста
 import { CurrentUserContext, defaultUserInfo } from '../../contexts/CurrentUserContext.js';
+import { moviesApi } from '../../utils/MoviesApi';
 
 function App() {
 
@@ -108,11 +109,13 @@ function App() {
 
   // Выход из аккаунта
   function logOut() {
-    // setIsAuthCheck(false);
+    setIsAuthCheck(false);
     setLoggedIn(false);
     setCurrentUser(defaultUserInfo);
     localStorage.clear();
     mainApi.setToken('');
+    mainApi.reset();
+    moviesApi.reset();
     history.push('/');
   }
 
@@ -129,7 +132,6 @@ function App() {
         <Switch>
           <Route path="/signup" >
             {!isAuthCheck ? <Register onRegister={handleRegistration} /> : <Redirect to="/" />}
-            {/* <Register onRegister={handleRegistration} /> */}
           </Route>
 
           <Route path="/signin" >

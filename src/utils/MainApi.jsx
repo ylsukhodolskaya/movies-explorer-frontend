@@ -3,6 +3,7 @@ class Api {
     this._url = config.url;
     this._headers = config.headers;
     this._movies = JSON.parse(localStorage.getItem('saved-movies') || '[]');
+
   }
 
   //Ошибка 
@@ -107,6 +108,11 @@ class Api {
         localStorage.setItem('saved-movies', JSON.stringify(this._movies));
         return movie;
       });
+  }
+
+  //сброс карточек при логауте
+  reset() {
+    this._movies = []
   }
 }
 
