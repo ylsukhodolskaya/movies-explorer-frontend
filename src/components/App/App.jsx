@@ -130,6 +130,10 @@ function App() {
         </Header>
 
         <Switch>
+        <Route path="/" exact>
+            <Main />
+          </Route>
+
           <Route path="/signup" >
             {!isAuthCheck ? <Register onRegister={handleRegistration} /> : <Redirect to="/" />}
           </Route>
@@ -158,13 +162,12 @@ function App() {
             loggedIn={loggedIn}
           />
 
-          <Route path="/">
-            <Main />
-          </Route>
 
-          <Route path="/*">
+
+          <Route path="*">
             <NotFound />
           </Route>
+
         </Switch>
 
         <NavTab
