@@ -110,7 +110,7 @@ function App() {
     setLoggedIn(false);
     setCurrentUser(defaultUserInfo);
     localStorage.clear();
-    history.push('/signin');
+    history.push('/');
   }
 
   return (
