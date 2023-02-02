@@ -124,13 +124,19 @@ function App() {
         </Header>
 
         <Switch>
-          <Route path="/signup">
-            <Register onRegister={handleRegistration} />
-          </Route>
+          <ProtectedRoute
+            path="/signup"
+            loggedIn={!loggedIn}
+            component={Register}
+            onRegister={handleRegistration}
+          />
 
-          <Route path="/signin">
-            <Login onLogin={handleLogin} />
-          </Route>
+          <ProtectedRoute
+            path="/signin"
+            loggedIn={!loggedIn}
+            component={Login}
+            onLogin={handleLogin}
+          />
 
           <ProtectedRoute
             path="/movies"
