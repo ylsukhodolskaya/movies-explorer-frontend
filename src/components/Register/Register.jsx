@@ -1,6 +1,7 @@
 import { useState } from "react";
 import logo from '../../images/logo__COLOR_main-1.svg';
-import './Register.css'
+import './Register.css';
+import { Link } from "react-router-dom";
 
 function Register(props) {
   const { onRegister } = props;
@@ -34,9 +35,9 @@ function Register(props) {
   return (
     <article className="register" aria-label="register">
       <section className="register__container" aria-label="register">
-        <a href="/" className="register__link-logo">
+        <Link to="/" className="register__link-logo">
           <img src={logo} className="register__logo" alt="logo" />
-        </a>
+        </Link>
         <h2 className="register__title">Добро пожаловать!</h2>
       </section>
 
@@ -102,7 +103,7 @@ function Register(props) {
           <button type="submit" className="register-buttons__submit " disabled={!isValidForm}>Зарегистрироваться</button>
           <div className="register-buttons__container">
             <span className="register-buttons__text">Уже зарегистрированы?</span>
-            <a href="/signin" className="register-buttons__link">Войти</a>
+            <Link to="/signin" className="register-buttons__link">Войти</Link>
           </div>
         </section>
       </form>

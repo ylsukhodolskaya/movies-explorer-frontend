@@ -1,5 +1,5 @@
 import './App.css';
-import { Switch, Route, useHistory } from 'react-router-dom';
+import { Switch, Route, useHistory, Redirect } from 'react-router-dom';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.jsx';
 import { useState, useEffect } from 'react';
 import Header from '../Header/Header.jsx';
@@ -28,6 +28,7 @@ function App() {
 
   const history = useHistory();
   const [loggedIn, setLoggedIn] = useState(true);
+  const [isAuthCheck, setIsAuthCheck] = useState(false);
   // Переменная состояния пользователя
   const [currentUser, setCurrentUser] = useState(defaultUserInfo);
 
@@ -40,16 +41,16 @@ function App() {
           if (user) {
             setLoggedIn(true);
             setCurrentUser(user);
+            setIsAuthCheck(true);
           } else {
-            setLoggedIn(false);
-            history.push('/');
+            logOut();
           }
         })
         .catch((err) => {
-          setLoggedIn(false)
+          logOut();
         });
     } else {
-      setLoggedIn(false)
+      logOut();
     }
   }
 
@@ -107,9 +108,11 @@ function App() {
 
   // Выход из аккаунта
   function logOut() {
+    // setIsAuthCheck(false);
     setLoggedIn(false);
     setCurrentUser(defaultUserInfo);
     localStorage.clear();
+    mainApi.setToken('');
     history.push('/');
   }
 
@@ -124,19 +127,14 @@ function App() {
         </Header>
 
         <Switch>
-          <ProtectedRoute
-            path="/signup"
-            loggedIn={!loggedIn}
-            component={Register}
-            onRegister={handleRegistration}
-          />
+          <Route path="/signup" >
+            {!isAuthCheck ? <Register onRegister={handleRegistration} /> : <Redirect to="/" />}
+            {/* <Register onRegister={handleRegistration} /> */}
+          </Route>
 
-          <ProtectedRoute
-            path="/signin"
-            loggedIn={!loggedIn}
-            component={Login}
-            onLogin={handleLogin}
-          />
+          <Route path="/signin" >
+            {!isAuthCheck ? <Login onLogin={handleLogin} /> : <Redirect to="/" />}
+          </Route>
 
           <ProtectedRoute
             path="/movies"

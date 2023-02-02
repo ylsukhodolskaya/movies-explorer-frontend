@@ -1,6 +1,7 @@
 import React from "react";
 import './NavTab.css';
 import account_logo from '../../../images/icon__COLOR_icon-main.svg';
+import { Link } from "react-router-dom";
 
 function NavTab({ isOpen, onClose }) {
   return (
@@ -8,31 +9,31 @@ function NavTab({ isOpen, onClose }) {
       <section className="navtab__popup" aria-label="navtab">
         <button type="button" className="navtab__close" onClick={onClose}></button>
         <div className="navtab__navigate">
-          <a
-            href="/"
+          <Link
+            to="/"
             className="navtab__navigate-link"
-          >Главная</a>
-          <a
-            href="/movies"
+          >Главная</Link>
+          <Link
+            to="/movies"
             className="navtab__navigate-link"
-          >Фильмы</a>
-          <a
-            href="/saved-movies"
+          >Фильмы</Link>
+          <Link
+            to="/saved-movies"
             className="navtab__navigate-link"
-          >Сохранённые фильмы</a>
+          >Сохранённые фильмы</Link>
         </div>
         <div className='navtab__account-links'>
-          <a
+          <Link
             className="navtab__account-link"
-            href="/profile"
+            to="/profile"
           >
             Аккаунт
-          </a>
-          <a
-            href="/profile"
+          </Link>
+          <Link
+            to="/profile"
             className='navtab__account-link-button'>
             <img src={account_logo} alt="" />
-          </a>
+          </Link>
         </div>
       </section>
     </article>
