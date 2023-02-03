@@ -16,7 +16,7 @@ function Header(props) {
       <Link to="/" className="header__link-logo">
         <img src={logo} className="header__logo" alt="logo" />
       </Link>
-      <button type="button" className="header__burger-button" onClick={onNavBar}></button>
+      {loggedIn ? <button type="button" className="header__burger-button" onClick={onNavBar}></button> : ''}
       <Navigation loggedIn={loggedIn} />
     </header>
   )

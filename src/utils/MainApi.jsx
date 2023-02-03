@@ -117,8 +117,8 @@ class Api {
 }
 
 export const mainApi = new Api({
-  // url: "http://localhost:3002",
-  url: "https://api-movies-explorer.nomoredomains.club",
+  url: "http://localhost:3002",
+  // url: "https://api-movies-explorer.nomoredomains.club",
   headers: {
     "content-type": "application/json",
     "authorization": "",
