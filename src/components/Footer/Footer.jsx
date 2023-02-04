@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 
 function Footer() {
   const { pathname } = useLocation();
-  const isLoginRegisterPage = pathname === '/sign-in' || pathname === '/sign-up';
+  const isLoginRegisterPage = pathname === '/signin' || pathname === '/signup';
   return (
     (!isLoginRegisterPage) &&
     <footer className='footer'>

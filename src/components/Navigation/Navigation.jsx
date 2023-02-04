@@ -1,47 +1,49 @@
 import React from "react";
-// import { Link } from "react-router-dom";
 import account_logo from '../../images/icon__COLOR_icon-main.svg';
 import './Navigation.css';
+import { Link } from "react-router-dom";
 
-function Navigation() {
+function Navigation(props) {
+  const { loggedIn } = props;
+
   return (
-    <article className='header__menu' aria-label="header__menu">
-      <section className='header__left-links' aria-label="header__left-links">
-        <a
-          href="/movies"
+    <article className={`${loggedIn ? 'header__menu' : 'header__menu_right'}`} aria-label="header__menu">
+      {loggedIn && <section className='header__left-links' aria-label="header__left-links">
+        <Link
+          to="/movies"
           className="link"
-        >Фильмы</a>
-        <a
-          href="/saved-movies"
+        >Фильмы</Link>
+        <Link
+          to="/saved-movies"
           className="link link_thin"
-        >Сохраненные фильмы</a>
-      </section>
-      {/* <section className='header__right-links' aria-label="header__right-links">
-        <a
+        >Сохраненные фильмы</Link>
+      </section>}
+      {!loggedIn && <section className='header__right-links' aria-label="header__right-links">
+        <Link
           className="link "
-          href="/sign-up"
+          to="/signup"
         >
           Регистрация
-        </a>
-        <a
-          href="/sign-in"
+        </Link>
+        <Link
+          to="/signin"
           className='link header__link-button'
-        >Войти</a>
-      </section> */}
-      <section className='header__account-links' aria-label="header__account-links">
-        <a
+        >Войти</Link>
+      </section>}
+      {loggedIn && <section className='header__account-links' aria-label="header__account-links">
+        <Link
           className="link "
-          href="/profile"
+          to="/profile"
         >
           Аккаунт
-        </a>
-        <a
-          href="/profile"
+        </Link>
+        <Link
+          to="/profile"
           className='link header__account-link-button'
         >
           <img src={account_logo} alt="" />
-        </a>
-      </section>
+        </Link>
+      </section>}
     </article>
   )
 }

@@ -42,6 +42,10 @@
   top: 22px;
 }
 
+.navtab__close {
+  opacity: 80%;
+}
+
 .navtab__navigate {
   display: flex;
   flex-direction: column;
@@ -59,6 +63,11 @@
   text-align: center;
 }
 
+.navtab__navigate-link:hover {
+  opacity: 80%;
+  cursor: pointer;
+}
+
 .navtab__navigate-link_active {
   border-bottom: 2px solid #FFFFFF;
 }
@@ -69,12 +78,20 @@
   align-items: center;
 }
 
+.navtab__account-links:hover {
+  opacity: 80%;
+}
+
 .navtab__account-link {
   text-decoration: none;
   font-weight: 500;
   font-size: 14px;
   line-height: 16px;
   color: #FFFFFF;
+}
+
+.navtab__account-link:hover {
+  cursor: pointer;
 }
 
 .navtab__account-link-button {
@@ -84,6 +101,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.navtab__account-link-button:hover {
+  cursor: pointer;
 }
 
 .navtab_opened {

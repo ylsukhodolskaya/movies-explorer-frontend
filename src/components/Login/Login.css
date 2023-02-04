@@ -93,6 +93,16 @@
   cursor: pointer;
 }
 
+.login-buttons__submit:not(:disabled):hover {
+  opacity: 80%;
+}
+
+.login-buttons__submit:disabled {
+  background-color: #F8F8F8;
+  color: #C2C2C2;
+  cursor: default;
+}
+
 .login-buttons__container {
   padding: 16px 0 0 0;
   display: flex;
@@ -107,6 +117,10 @@
 .login-buttons__link {
   text-decoration: none;
   color: #4285F4;
+}
+
+.login-buttons__link:hover {
+  opacity: 80%;
 }
 
 @media screen and (max-width: 873px) {
